@@ -13,7 +13,6 @@ func getTaskCollection(client *mongo.Client) *mongo.Collection {
 	return client.Database("taskdb").Collection("tasks")
 }
 
-// GetAllTasks returns all tasks from MongoDB
 func GetAllTasks(ctx context.Context, client *mongo.Client) ([]models.Task, error) {
 	collection := getTaskCollection(client)
 	cursor, err := collection.Find(ctx, bson.M{})
@@ -44,7 +43,6 @@ func GetTaskByID(ctx context.Context, client *mongo.Client, id string) (models.T
 	return task, err
 }
 
-// AddTask inserts a new task into MongoDB
 func AddTask(ctx context.Context, client *mongo.Client, task models.Task) error {
 	collection := getTaskCollection(client)
 	_, err := collection.InsertOne(ctx, task)
@@ -68,7 +66,6 @@ func UpdateTask(ctx context.Context, client *mongo.Client, id string, updatedTas
 	return nil
 }
 
-// RemoveTask deletes a task by ID from MongoDB
 func RemoveTask(ctx context.Context, client *mongo.Client, id string) error {
 	collection := getTaskCollection(client)
 	result, err := collection.DeleteOne(ctx, bson.M{"id": id})
