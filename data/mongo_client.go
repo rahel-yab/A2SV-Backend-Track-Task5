@@ -10,11 +10,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// ConnectMongo connects to MongoDB using the URI from the environment variable MONGODB_URI
 func ConnectMongo() *mongo.Client {
 	uri := os.Getenv("MONGODB_URI")
 	if uri == "" {
-		uri = "mongodb://localhost:27017" // default fallback
+		uri = "mongodb://localhost:27017"
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
